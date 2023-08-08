@@ -54,4 +54,13 @@ public class MyExceptionHandler extends ResponseEntityExceptionHandler {
         return responseEntity;
     }
 
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<Object> handleAll(Exception ex , WebRequest request){
+        ExceptionResponse exceptionResponse = new ExceptionResponse();
+        exceptionResponse.setDateTime(LocalDateTime.now());
+        exceptionResponse.setMessage("Something went wrong from the server side , please try again later");
+        ResponseEntity<Object> responseEntity = new ResponseEntity<>(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+        return responseEntity;
+    }
+
 }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class AccountUserEntityController {
+public class AccountUserController {
 
     @Autowired
     private AccountUserService accountUserService;
