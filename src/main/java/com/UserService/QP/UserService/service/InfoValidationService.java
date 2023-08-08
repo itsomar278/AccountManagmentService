@@ -9,38 +9,34 @@ import java.util.Date;
 public class InfoValidationService {
 
     public boolean validateDateBirth(Date DateOfBirth) {
+        boolean trueDate = DateOfBirth.before(new Date());
+        boolean olderThan18 = DateOfBirth.before(new Date(System.currentTimeMillis() - 18 * 31556952000L));
 
-        boolean TrueDate = DateOfBirth.before(new Date());
-        boolean OlderThan18 = DateOfBirth.before(new Date(System.currentTimeMillis() - 18 * 31556952000L));
-
-        if(TrueDate&& OlderThan18) {
+        if(trueDate&& olderThan18)
+        {
             return true;
         }
-        else {
-            System.out.println("salamo alikum");
-            throw new WrongInputException("Wrong Date of Birth , check again and make sure you are older than 18");
-        }
+
+        throw new WrongInputException("Wrong Date of Birth , check again and make sure you are older than 18");
     }
 
     public boolean validateFirstName(String firstName) {
         boolean match = firstName.matches("^[a-zA-Z]+$");
-        if (match) {
+        if (match)
+        {
             return true;
         }
-        else
-        {
-            throw new WrongInputException("First Name can't include anything else of alphabetical characters");
-        }
+
+        throw new WrongInputException("First Name can't include anything else of alphabetical characters");
     }
     public boolean validateLastName(String lastName) {
         boolean match = lastName.matches("^[a-zA-Z]+$");
-        if (match) {
+        if (match)
+        {
             return true;
         }
-        else
-        {
-            throw new WrongInputException("Last Name can't include anything else of alphabetical characters");
-        }
+
+        throw new WrongInputException("Last Name can't include anything else of alphabetical characters");
     }
     public boolean validateEmail(String email) {
         boolean match = email.matches("^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+$");
@@ -48,10 +44,9 @@ public class InfoValidationService {
         if (match) {
             return true;
         }
-        else
-        {
-            throw new WrongInputException("Wrong Email address please check it again ");
-        }
+
+        throw new WrongInputException("Wrong Email address please check it again ");
+
     }
 
 }

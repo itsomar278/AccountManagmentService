@@ -23,11 +23,12 @@ public interface IAccountUserMapper {
 
     List<AccountUserResponse> map(List<AccountUserEntity> accountEntities);
 
-    @Mapping(target = "account_Id", source = "account.id")
+    @Mapping(target = " account_Id", source = "account.id")
     AccountUserResponse entityToResponse(AccountUserEntity accountUserEntity);
 
     AccountUserEntity postRequestToEntity(AccountUserPostRequest accountUserPostRequest);
     AccountUserEntity updateRequestToEntity(AccountUserUpdateRequest accountUserUpdateRequest);
+
 
 
 

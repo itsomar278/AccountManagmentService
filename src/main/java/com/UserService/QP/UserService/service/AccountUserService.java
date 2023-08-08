@@ -22,8 +22,6 @@ public class AccountUserService  {
     private IAccountRepository accountRepository;
     @Autowired
     private InfoValidationService infoValidationService;
-
-
     public List<AccountUserEntity> findAll(int accountId) {
         List<AccountUserEntity> result =  accountUserRepository.findAll().
                 stream()
@@ -34,10 +32,8 @@ public class AccountUserService  {
         {
             throw new EmptyResultException("This account didn't register any users");
         }
-        else
-        {
+
             return result;
-        }
     }
 
 
@@ -92,7 +88,7 @@ public class AccountUserService  {
         if (accountRepository.existsById(account_id) == false) {
             throw new ResultNotFoundException("There is no account with such id");
         }
-        if(accountUserRepository.existsById(id) == false)
+        else if(accountUserRepository.existsById(id) == false)
         {
             throw new ResultNotFoundException("There is no account user with such id");
         }

@@ -28,9 +28,9 @@ public class AccountService {
         if (result.isEmpty()) {
             throw new EmptyResultException("No Accounts are registered in the system");
         }
-        else {
-            return result;
-        }
+
+        return result;
+
     }
 
     public AccountEntity findById(int id) {
@@ -39,62 +39,52 @@ public class AccountService {
         if (result == null) {
             throw new ResultNotFoundException("No Account with such id");
         }
-        else {
-            return result;
-        }
+
+        return result;
+
     }
 
     public AccountEntity save(AccountEntity account) {
         AccountEntity result = accountRepository.findByEmail(account.getEmail());
 
-        if(result != null) {
+        if (result != null) {
             throw new ResourceExistsException("Account with such email already exists");
         }
 
-        else {
-            validateAccount(account);
-            return accountRepository.save(account);
-        }
+        validateAccount(account);
+        return accountRepository.save(account);
     }
 
-    public void deleteById(int id)
-    {
-        if(!doesUserExist(id))
+    public void deleteById(int id) {
+        if (!doesUserExist(id))
         {
             throw new ResultNotFoundException("No Account with such id");
         }
-        else
-        {
-            accountRepository.deleteById(id);
-        }
+
+        accountRepository.deleteById(id);
     }
 
-    public void Update (AccountEntity account , int id) {
-        if(!doesUserExist(id))
+    public void Update(AccountEntity account, int id) {
+        if (!doesUserExist(id))
         {
             throw new ResultNotFoundException("No Account with such id");
         }
-        else
+
+        AccountEntity oldAccount = accountRepository.findById(id).orElse(null);
+        if (!oldAccount.getEmail().equals(account.getEmail()) && doesUserExist(account.getEmail()))
         {
-            AccountEntity oldAccount = accountRepository.findById(id).orElse(null);
-            if(!oldAccount.getEmail().equals(account.getEmail())&&doesUserExist(account.getEmail()))
-            {
-                    throw new WrongInputException("Account with such email already exists");
-            }
-            else
-            {
-                IAccountMapper.INSTANCE.entityToEntity(account,oldAccount);
-                accountRepository.save(oldAccount);
-            }
+            throw new WrongInputException("Account with such email already exists");
         }
 
+        IAccountMapper.INSTANCE.entityToEntity(account, oldAccount);
+        accountRepository.save(oldAccount);
     }
 
     public boolean validateAccount(AccountEntity user) {
-        return infoValidationService.validateEmail(user.getEmail())&&
-                infoValidationService.validateDateBirth(user.getDateOfBirth())&&
-                infoValidationService.validateFirstName(user.getFirstName())&&
-                infoValidationService.validateLastName(user.getLastName());
+        return infoValidationService.validateEmail(user.getEmail())
+                && infoValidationService.validateDateBirth(user.getDateOfBirth())
+                && infoValidationService.validateFirstName(user.getFirstName())
+                && infoValidationService.validateLastName(user.getLastName());
     }
 
     public boolean doesUserExist(int id) {
@@ -105,12 +95,11 @@ public class AccountService {
     public boolean doesUserExist(String email) {
         AccountEntity account = accountRepository.findByEmail(email);
 
-        if(account == null) {
+        if (account == null) {
             return false;
         }
-        else {
-            return true;
-        }
+
+        return true;
     }
 
 }

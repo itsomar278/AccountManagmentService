@@ -52,6 +52,4 @@ public class AccountController {
         return new ResponseEntity<>("account was created successfully", HttpStatus.CREATED);
     }
 
-
-
 }
