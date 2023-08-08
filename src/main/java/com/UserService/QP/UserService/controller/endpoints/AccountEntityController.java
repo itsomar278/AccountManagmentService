@@ -19,26 +19,26 @@ public class AccountEntityController {
     private AccountService accountEntityService;
 
     @GetMapping("/accounts")
-    public ResponseEntity<List<AccountResponse>> getAllUsers() {
+    public ResponseEntity<List<AccountResponse>> getAllAccounts() {
         List<AccountEntity> accountEntityList = accountEntityService.findAll();
         return new ResponseEntity<>(IAccountMapper.INSTANCE.map(accountEntityList), HttpStatus.OK);
     }
 
     @GetMapping("/accounts/{id}")
-    public ResponseEntity<AccountResponse> getAccountById(int id) {
+    public ResponseEntity<AccountResponse> getAccountById(@PathVariable int id) {
         AccountEntity accountEntity = accountEntityService.findById(id);
         AccountResponse accountResponse = IAccountMapper.INSTANCE.entityToResponse(accountEntity);
         return new ResponseEntity<>(accountResponse, HttpStatus.OK);
     }
 
     @DeleteMapping("/accounts/{id}")
-    public ResponseEntity<String> deleteAccountById(int id) {
+    public ResponseEntity<String> deleteAccountById(@PathVariable int id) {
         accountEntityService.deleteById(id);
         return new ResponseEntity<>("Account with id: " + id + " was deleted", HttpStatus.OK);
     }
 
     @PutMapping("/accounts/{id}")
-    public ResponseEntity<String> updateAccountById(int id, AccountUpdateRequest updateRequest) {
+    public ResponseEntity<String> updateAccountById(@PathVariable int id, AccountUpdateRequest updateRequest) {
         {
             accountEntityService.Update(IAccountMapper.INSTANCE.updateRequestToEntity(updateRequest), id);
             return new ResponseEntity<>("account with id : " + id + "was updated successfully", HttpStatus.OK);

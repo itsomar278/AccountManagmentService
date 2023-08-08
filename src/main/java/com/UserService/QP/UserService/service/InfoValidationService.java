@@ -9,6 +9,7 @@ import java.util.Date;
 public class InfoValidationService {
 
     public boolean validateDateBirth(Date DateOfBirth) {
+
         boolean TrueDate = DateOfBirth.before(new Date());
         boolean OlderThan18 = DateOfBirth.before(new Date(System.currentTimeMillis() - 18 * 31556952000L));
 
@@ -16,6 +17,7 @@ public class InfoValidationService {
             return true;
         }
         else {
+            System.out.println("salamo alikum");
             throw new WrongInputException("Wrong Date of Birth , check again and make sure you are older than 18");
         }
     }

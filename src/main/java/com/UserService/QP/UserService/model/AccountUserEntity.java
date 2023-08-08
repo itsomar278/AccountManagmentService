@@ -2,6 +2,8 @@ package com.UserService.QP.UserService.model;
 
 import jakarta.persistence.*;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "account_user", schema = "public", catalog = "project")
 public class AccountUserEntity {
@@ -16,8 +18,8 @@ public class AccountUserEntity {
     @Column(name = "last_name", nullable = false, length = 25)
     private String lastName;
     @Basic
-    @Column(name = "date_of_birth", nullable = false, length = 25)
-    private String dateOfBirth;
+    @Column(name = "date_of_birth", nullable = false)
+    private Date dateOfBirth;
     @ManyToOne
     @JoinColumn(name = "account_id", referencedColumnName = "id")
     private AccountEntity account;
@@ -54,16 +56,16 @@ public class AccountUserEntity {
         this.lastName = lastName;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
     public int getAccountId() {
-        return account.getId();
+        return getAccount().getId();
     }
 
 
